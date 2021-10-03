@@ -4,6 +4,8 @@ import './sign-in.styles.scss'
 
 import FormInput from '../form-input/form-input.components';
 import CustomButton from '../custom-button/custom-button.component';
+import { sdk } from '../../appwrite/appwrite.utils';
+import { loginUser } from '../../appwrite/appwrite.utils';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -14,9 +16,17 @@ class SignIn extends React.Component {
         }
     }
 
+
+
     handleSubmit = event=>{
         event.preventDefault();
-
+        const {email,password} = this.state
+        loginUser(email,password).then(response=>{
+            console.log(response);
+        }, error=>{
+            console.log(error);
+        }
+        )
         this.setState({email : '', password: ''})
     }
 
